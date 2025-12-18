@@ -1,0 +1,20 @@
+---
+import Button from "../ui/Button.astro"
+---
+
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur border-b">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="/" class="text-lg font-semibold tracking-tight">
+            Construtora Santana
+        </a>
+        
+        <nav class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="/" class="hover:text-primary">Inicio</a>
+            <a href="/proyectos" class="hover:text-primary">Proyectos</a>
+        </nav>
+        
+        <Button variant="tonal" class="hidden md:inline-flex">
+            Contacto
+        </Button>
+    </div>
+</header>

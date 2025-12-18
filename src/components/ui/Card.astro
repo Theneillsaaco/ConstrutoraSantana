@@ -1,0 +1,7 @@
+---
+const { class: className = "" } = Astro.props;
+---
+
+<div class={`rounded-2xl bg-surface shadow-sm hover:shadow-md transition ${className}`}>
+    <slot />
+</div>

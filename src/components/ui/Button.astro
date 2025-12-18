@@ -1,0 +1,25 @@
+---
+type ButtonVariant = "filled" | "tonal" | "outlined" | "text";
+
+interface Props {
+  variant?: ButtonVariant;
+  class?: string;
+}
+
+const {
+  variant = "filled",
+  class: className = ""
+} = Astro.props as Props;
+
+const base = "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition";
+
+const variants: Record<ButtonVariant, string> = {
+  filled: "bg-primary text-white hover:bg-primary/90",
+  tonal: "bg-primary/10 text-primary hover:bg-primary/20",
+  outlined: "border border-primary text-primary hover:bg-primary/10", text: "text-primary hover:bg-primary/10"
+};
+---
+
+<button class={`${base} ${variants[variant]} ${className}`}>
+    <slot />
+</button>
