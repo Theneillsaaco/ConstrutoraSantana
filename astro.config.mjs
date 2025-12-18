@@ -6,15 +6,14 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://Theneillsaaco.github.io',
-    base: '/ConstrutoraSantana',
+  base: '/ConstrutoraSantana',
   
-    server:{
-      host: true,
-      port: 4321,
-      allowedHosts: true
-    },
+  server:{
+    host: true,
+    port: 4321,
+    allowedHosts: true
+  },
 
-    
   vite: {
     plugins: [tailwindcss()]
   }
