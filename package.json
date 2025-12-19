@@ -1,7 +1,7 @@
 {
   "name": "construtorasantana",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,11 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.6",
-    "tailwindcss": "^4.1.18"
+    "@iconify-json/mdi": "1.2.3",
+    "@tailwindcss/vite": "4.1.18",
+    "astro": "5.16.6",
+    "astro-icon": "1.1.5",
+    "tailwindcss": "4.1.18"
   },
   "devDependencies": {
-    "@types/bun": "^1.3.4"
+    "@types/bun": "1.3.4"
   }
 }
