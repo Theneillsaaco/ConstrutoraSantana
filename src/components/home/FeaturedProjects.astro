@@ -1,13 +1,189 @@
 ---
-import Card from "../ui/Card.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Button from "../ui/Button.astro";
+
+const projects: CollectionEntry<"projects">[] = await getCollection("projects");
+
+const categories = Array.from(
+  new Set(projects.map(p => p.data.type.toLowerCase()))
+).sort();
 ---
 
 <section class="py-24">
-    <h2 class="text-3xl font-semibold tracking-tight">
-        Proyectos destacados
-    </h2>
-    
-    <div class="mt-12 grid md:grid-cols-3 gap-6">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <div class="px-4 py-2 inline-flex items-center gap-2 bg-primary/20 text-gray-600 rounded-full text-sm font-medium uppercase tracking-wide mb-6">
+                <Icon name="mdi:home-outline" class="w-4 h-4" />
+                <span>Proyectos</span>
+            </div>
+            <h2 class="text-3xl font-semibold tracking-tight">
+                Proyectos que nos definen
+            </h2>
+        </div>
         
+        <!-- Filter Button -->
+        <div id="portfolio-filter" class="flex flex-wrap justify-center gap-2 mb-16">
+            <button 
+                data-filter="all" 
+                class="filter-chip"
+            >
+                Todos
+            </button>
+            
+            {categories.map(cat => (
+                <button
+                    class="filter-chip"
+                    data-filter={cat}
+                >
+                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+            ))}
+        </div>
+        
+        <!-- Portfolio Grid -->
+        <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((proj, i) => (
+              <a
+                href={`ConstrutoraSantana/project/${proj.slug}`}
+                class="group block rounded-3xl bg-surface shadow-sm hover:shadow-md transition border border-primary/10"
+                data-category={proj.data.type.toLowerCase()}
+                data-index={i}
+                role="article"
+                aria-label={`Proyecto: ${proj.data.title}, Categoria: ${proj.data.type}`}
+                tabindex="0"
+              >
+                  <div class="relative h-56 overflow-hidden rounded-t-3xl">
+                      <img 
+                        transition:name={`project-image-${proj.slug}`}
+                        src={proj.data.img.cover}
+                        alt={proj.data.title}
+                        loading="lazy"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-br from-primary/70 to-secondary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span
+                            class="bg-white text-primary px-5 py-2 rounded-xl font-medium shadow-md flex items-center gap-2 text-sm"
+                            aria-label={`Ver detalles del proyecto ${proj.data.title}`}
+                          >
+                              <Icon name="mdi:eye-outline" class="w-4 h-4" />
+                              Ver Proyecto
+                          </span>
+                      </div>
+                  </div>
+                  
+                  <!-- Contenido -->
+                  <div class="p-6 flex flex-col gap-3">
+                    <div class="bg-primary/20 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide" transition:name={`project-type-${proj.slug}`}>
+                          <span class=" text-gray-600 px-3 text-sm font-semibold uppercase inline-flex" transition:name={`project-type-${proj.slug}`}>
+                              {proj.data.type}
+                          </span>
+                          <span class="text-gray-600 text-sm">
+                              {proj.data.date}
+                          </span>
+                    </div>
+                    
+                    <h4 
+                        class="text-lg font-semibold text-gray-600 tracking-tight"
+                        transition:name={`project-title-${proj.slug}`}
+                    >
+                        {proj.data.title}
+                    </h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        {proj.data.description}
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="bg-primary/20 text-gray-600 px-3 py-1 rounded-full text-xs font-medium">
+                            {proj.data.location}
+                        </span>
+                    </div>
+                    <div class="pt-4">
+                        <Button 
+                            variant="tonal"
+                            data-astro-prefetch
+                        >
+                            Ver Proyecto
+                            <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
+                        </Button>
+                    </div>  
+                  </div>
+              </a>
+            ))}
+        </div>
+        
+        <!-- View More Button -->
+        <div class="flex justify-center mt-16">
+            <a href="ConstrutoraSantana/proyectos">
+                <Button
+                    variant="tonal"
+                    data-astro-prefetch
+                >
+                    Ver Más Proyectos
+                </Button>
+            </a>
+        </div>
     </div>
 </section>
+
+<script type="module" is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const portfolioCards = document.querySelectorAll(".portfolio-card");
+        const pill = document.getElementById("filter-pill")
+        const MAX_VISIBLE = 6;
+
+        function movePill(target) {
+            const rect = target.getBoundingClientRect();
+            const parentRect = target.parentElement.getBoundingClientRect();
+
+            pill.style.width = `${rect.width}px`;
+            pill.style.height = `${rect.height}px`;
+
+            const x = rect.left - parentRect.left;
+            const y = rect.top - parentRect.top;
+
+            pill.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function showFiltered(filter) {
+            filter = (filter || "all").toLowerCase();
+            let show = 0;
+
+            portfolioCards.forEach((card) => {
+                const category = (card.getAttribute("data-category") || "").toLowerCase();
+                const isMatch = filter === "all" || category === filter;
+
+                if (isMatch && show < MAX_VISIBLE) {
+                    card.style.display = "block";
+
+                    setTimeout(() => {
+                        card.classList.remove("opacity-0", "scale-95");
+                        card.classList.add("opacity-100", "scale-100");
+                    }, 20);
+                    show++;
+                } else {
+                    card.classList.remove("opacity-100", "scale-100");
+                    card.classList.add("opacity-0", "scale-95");
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        showFiltered("all");
+        movePill(filterButtons[0]);
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                movePill(btn);
+
+                const filter = (btn.getAttribute("data-filter") || "all").toLowerCase();
+                showFiltered(filter);
+            });
+        });
+
+        window.addEventListener("resize", () => {
+            const activeBtn = document.querySelector(".filter-btn-active") || filterButtons[0];
+            movePill(activeBtn);
+        })
+    });
+</script>

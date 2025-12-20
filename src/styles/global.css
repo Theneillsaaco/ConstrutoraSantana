@@ -9,3 +9,18 @@
     --color-background: #F4EFF4;
     --color-error: #B3261E;
 }
+
+/* MD3 – Filter chip */
+.filter-chip {
+  @apply px-5 py-2 rounded-full text-sm font-medium
+         bg-secondary/10 text-secondary
+         hover:bg-secondary/20
+         transition
+         focus-visible:outline-none
+         focus-visible:ring-2
+         focus-visible:ring-primary/30;
+}
+
+.filter-chip-active {
+  @apply bg-primary/15 text-primary;
+}
