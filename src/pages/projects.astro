@@ -1,0 +1,127 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import Button from "../components/ui/Button.astro";
+
+const projects: CollectionEntry<"projects">[] = await getCollection("projects");
+
+const filteredProjects = projects
+  .filter(projects => projects.data.type !== "test")
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+---
+
+<Layout>
+    <!-- Hero Section -->
+    <section class="bg-primary/10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-4">
+                    Nuestros Proyectos
+                </h2>
+                <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
+                    Explorá nuestra colección de proyectos arquitectónicos que reflejan la identidad caribeña
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Grid -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map(project => (
+                <a 
+                  href={`/ConstrutoraSantana/project/${project.slug}`}
+                  class="group block rounded-3xl
+                      bg-surface
+                      overflow-hidden
+                      shadow-sm
+                      transition-[box-shadow,background-color] duration-200
+                      hover:shadow-md hover:bg-surface-variant
+                      focus-visible:outline-none
+                      focus-visible:ring-2 focus-visible:ring-primary/50"
+                  aria-label={`Proyecto: ${project.data.title}, Categoria: ${project.data.type}`}
+                  tabindex="0"
+                >
+                    <div class="relative aspect-video">
+                        <img
+                          transition:name={`project-image-${project.slug}`}
+                          src={project.data.img.cover}
+                          alt={project.data.title}
+                          class=" w-full h-full object-cover
+                             transition-transform duration-500 ease-out
+                             group-hover:scale-[1.03]"
+                          loading="lazy"
+                        />
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="px-3 py-1 rounded-full text-xs font-medium bg-secondary-container text-on-secondary-container" transition:name={`project-type=${project.slug}`}>
+                                {project.data.type}
+                            </span>
+                            <span class="text-sm text-on-surface-variant">
+                                {project.data.date}
+                            </span>
+                        </div>
+                        
+                        <h3
+                            class="text-xl font-bold text-gray-600 mb-2 group-hover:text-primary/70 transition-colors"
+                            transition:name={`project-title-${project.slug}`}
+                        >
+                            {project.data.title}
+                        </h3>
+                        
+                        <p class="text-gray-600 mb-4 line-clamp-2">
+                            {project.data.description}
+                        </p>
+                        
+                        <div class="flex items-center justify-between text-sm text-gray-600">
+                            <div class="flex items-center">
+                                <Icon name="mdi:map-marker" class="w-4 h-4 mr-1" />
+                                {project.data.location}
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mt-4">
+                          {project.data.tags.map((tag: string) => (
+                            <span
+                              class="
+                                px-3 py-1 rounded-full text-xs font-medium
+                                bg-surface-variant text-on-surface-variant
+                                border border-outline/30
+                              "
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        <div class="flex py-4">
+                            <Button variant="tonal">
+                                Ver Proyecto
+                            </Button>
+                        </div>
+                    </div>
+                </a>
+            ))}
+        </div>
+        
+        
+        {filteredProjects.length === 0 && (
+            <div class="text-center py-16">
+                <div class="max-auto w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mb-4">
+                    <svg class="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium text-gray-600 mb-2">
+                    No hay proyectos disponibles
+                </h3>
+                <p class="text-gray-600">
+                    Los proyectos aparecerán aquí una vez que sean publicados.
+                </p>
+            </div>
+        )}
+    </section>
+</Layout>

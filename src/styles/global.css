@@ -5,9 +5,19 @@
     --color-secondary: #625B71;
     --color-tertiary: #7D5260;
     
-    --color-surface: #FFFBFE;
     --color-background: #F4EFF4;
     --color-error: #B3261E;
+    
+    --color-secondary-container: oklch(90% 0.04 260);
+    --color-on-secondary-container: oklch(30% 0.05 260);
+  
+    --color-surface: oklch(98% 0.005 260);
+    --color-surface-variant: oklch(94% 0.01 260);
+  
+    --color-on-surface: oklch(20% 0.02 260);
+    --color-on-surface-variant: oklch(40% 0.03 260);
+  
+    --color-outline: oklch(75% 0.01 260);
 }
 
 /* MD3 – Filter chip */
