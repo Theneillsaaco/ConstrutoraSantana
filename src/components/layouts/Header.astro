@@ -4,14 +4,14 @@ import Button from "../ui/Button.astro"
 
 <header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="/" class="text-lg font-semibold tracking-tight">
+        <a href="/ConstrutoraSantana" class="text-lg font-semibold tracking-tight">
             Construtora Santana
         </a>
         
         <!-- Desktop nav -->
         <nav class="hidden md:flex gap-8 text-sm font-medium">
-            <a href="/" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Inicio</a>
-            <a href="/proyectos" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Proyectos</a>
+            <a href="/ConstrutoraSantana" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Inicio</a>
+            <a href="/ConstrutoraSantana/projects" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Proyectos</a>
         </nav>
         
         <div class="flex items-center gap-2">
@@ -39,10 +39,10 @@ import Button from "../ui/Button.astro"
         class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 bg-gray-200/70"
     >
         <nav class="px-4 py-6 flex flex-col items-center justify-center gap-4 text-sm font-medium">
-            <a href="/" class="hover:text-primary">
+            <a href="/ConstrutoraSantana" class="hover:text-primary">
                 Inicio
             </a>
-            <a href="/proyectos" class="hover:text-primary">
+            <a href="/ConstrutoraSantana/projects" class="hover:text-primary">
                 Proyectos
             </a>
             
@@ -54,17 +54,24 @@ import Button from "../ui/Button.astro"
 </header>
 
 
-<script>
-  const button = document.getElementById("mobile-menu-button");
-  const menu = document.getElementById("mobile-menu");
+<script is:inline type="module">
+  function initMobileMenu() {
+    const button = document.getElementById("mobile-menu-button");
+    const menu = document.getElementById("mobile-menu");
 
-  if (button && menu) {
+    if (!button || !menu) return;
+
     button.addEventListener("click", () => {
-      if (menu.style.maxHeight) {
+      const isOpen = menu.style.maxHeight;
+
+      if (isOpen) {
         menu.style.maxHeight = "";
       } else {
         menu.style.maxHeight = menu.scrollHeight + "px";
       }
     });
   }
+
+  document.addEventListener("astro:page-load", initMobileMenu);
 </script>
+
