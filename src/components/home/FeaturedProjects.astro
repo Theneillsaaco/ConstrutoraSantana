@@ -26,7 +26,7 @@ const categories = Array.from(
         <div id="portfolio-filter" class="flex flex-wrap justify-center gap-2 mb-16">
             <button 
                 data-filter="all" 
-                class="filter-chip"
+                class="filter-chip filter-chip-active"
             >
                 Todos
             </button>
@@ -46,7 +46,7 @@ const categories = Array.from(
             {projects.map((proj, i) => (
               <a
                 href={`ConstrutoraSantana/project/${proj.slug}`}
-                class="group block rounded-3xl bg-surface shadow-sm hover:shadow-md transition border border-primary/10"
+                class="portfolio-card group block rounded-3xl bg-surface shadow-sm hover:shadow-md border border-primary/10"
                 data-category={proj.data.type.toLowerCase()}
                 data-index={i}
                 role="article"
@@ -126,64 +126,50 @@ const categories = Array.from(
 </section>
 
 <script type="module" is:inline>
-    document.addEventListener("astro:page-load", () => {
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const portfolioCards = document.querySelectorAll(".portfolio-card");
-        const pill = document.getElementById("filter-pill")
-        const MAX_VISIBLE = 6;
+  document.addEventListener("astro:page-load", () => {
+    const filterButtons = document.querySelectorAll(".filter-chip");
+    const cards = document.querySelectorAll(".portfolio-card");
+    const MAX_VISIBLE = 6;
 
-        function movePill(target) {
-            const rect = target.getBoundingClientRect();
-            const parentRect = target.parentElement.getBoundingClientRect();
+    function setActiveButton(activeBtn) {
+      filterButtons.forEach(btn => {
+        btn.classList.toggle("filter-chip-active", btn === activeBtn);
+      });
+    }
 
-            pill.style.width = `${rect.width}px`;
-            pill.style.height = `${rect.height}px`;
+    function filterCards(filter) {
+      let shown = 0;
 
-            const x = rect.left - parentRect.left;
-            const y = rect.top - parentRect.top;
+      cards.forEach(card => {
+        const category = card.dataset.category;
+        const match = filter === "all" || category === filter;
 
-            pill.style.transform = `translate(${x}px, ${y}px)`;
+        if (match && shown < MAX_VISIBLE) {
+          card.style.display = "block";
+
+          requestAnimationFrame(() => {
+            card.classList.remove("is-hidden");
+          });
+
+          shown++;
+        } else {
+          card.classList.add("is-hidden");
+
+          setTimeout(() => {
+            card.style.display = "none";
+          }, 200);
         }
+      });
+    }
 
-        function showFiltered(filter) {
-            filter = (filter || "all").toLowerCase();
-            let show = 0;
-
-            portfolioCards.forEach((card) => {
-                const category = (card.getAttribute("data-category") || "").toLowerCase();
-                const isMatch = filter === "all" || category === filter;
-
-                if (isMatch && show < MAX_VISIBLE) {
-                    card.style.display = "block";
-
-                    setTimeout(() => {
-                        card.classList.remove("opacity-0", "scale-95");
-                        card.classList.add("opacity-100", "scale-100");
-                    }, 20);
-                    show++;
-                } else {
-                    card.classList.remove("opacity-100", "scale-100");
-                    card.classList.add("opacity-0", "scale-95");
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        showFiltered("all");
-        movePill(filterButtons[0]);
-
-        filterButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                movePill(btn);
-
-                const filter = (btn.getAttribute("data-filter") || "all").toLowerCase();
-                showFiltered(filter);
-            });
-        });
-
-        window.addEventListener("resize", () => {
-            const activeBtn = document.querySelector(".filter-btn-active") || filterButtons[0];
-            movePill(activeBtn);
-        })
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setActiveButton(btn);
+        filterCards(btn.dataset.filter ?? "all");
+      });
     });
+
+    // inicial
+    filterCards("all");
+  });
 </script>
