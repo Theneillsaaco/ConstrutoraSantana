@@ -45,7 +45,7 @@ const categories = Array.from(
         <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((proj, i) => (
               <a
-                href={`ConstrutoraSantana/project/${proj.slug}`}
+                href={`/ConstrutoraSantana/project/${proj.slug}`}
                 class="portfolio-card group block rounded-3xl bg-surface shadow-sm hover:shadow-md border border-primary/10"
                 data-category={proj.data.type.toLowerCase()}
                 data-index={i}
