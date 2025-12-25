@@ -52,6 +52,7 @@ const categories = Array.from(
                 role="article"
                 aria-label={`Proyecto: ${proj.data.title}, Categoria: ${proj.data.type}`}
                 tabindex="0"
+                data-astro-prefetch
               >
                   <div class="relative h-56 overflow-hidden rounded-t-3xl">
                       <img 
@@ -98,10 +99,7 @@ const categories = Array.from(
                         </span>
                     </div>
                     <div class="pt-4">
-                        <Button 
-                            variant="tonal"
-                            data-astro-prefetch
-                        >
+                        <Button variant="tonal">
                             Ver Proyecto
                             <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
                         </Button>
@@ -113,7 +111,7 @@ const categories = Array.from(
         
         <!-- View More Button -->
         <div class="flex justify-center mt-16">
-            <a href="ConstrutoraSantana/proyectos">
+            <a href="ConstrutoraSantana/projects" data-astro-prefetch>
                 <Button
                     variant="tonal"
                     data-astro-prefetch
