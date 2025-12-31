@@ -1,29 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary (azul MD3) */
-  --color-primary: #4F5DBA; /* azul suave, reemplazo del morado */
-  --color-secondary: #5E6A85; /* azul grisáceo */
-  --color-tertiary: #4A6FA5; /* azul acento */
+  --color-primary: #3F5BD9;
+  --color-secondary: #5C6F9A;
+  --color-tertiary: #2F7BEA;
 
-  /* Background & error */
-  --color-background: oklch(98% 0.01 245);
+  --color-background: oklch(98% 0.01 225);
   --color-error: #B3261E;
 
-  /* Containers */
-  --color-secondary-container: oklch(90% 0.035 245);
-  --color-on-secondary-container: oklch(28% 0.04 245);
+  --color-secondary-container: oklch(90% 0.04 225);
+  --color-on-secondary-container: oklch(26% 0.045 225);
 
-  /* Surfaces */
-  --color-surface: oklch(99% 0.004 245);
-  --color-surface-variant: oklch(95% 0.012 245);
+  --color-surface: oklch(99% 0.004 225);
+  --color-surface-variant: oklch(94% 0.014 225);
 
-  /* On colors */
-  --color-on-surface: oklch(20% 0.02 245);
-  --color-on-surface-variant: oklch(42% 0.03 245);
+  --color-on-surface: oklch(18% 0.02 225);
+  --color-on-surface-variant: oklch(40% 0.03 225);
 
-  /* Outline */
-  --color-outline: oklch(74% 0.015 245);
+  --color-outline: oklch(72% 0.015 225);
 }
 
 
