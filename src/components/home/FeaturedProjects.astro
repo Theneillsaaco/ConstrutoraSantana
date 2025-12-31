@@ -11,31 +11,25 @@ const categories = Array.from(
 ---
 
 <section class="py-24">
-    <div class="container mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-            <div class="px-4 py-2 inline-flex items-center gap-2 bg-primary/20 text-gray-600 rounded-full text-sm font-medium uppercase tracking-wide mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium mb-6">
                 <Icon name="mdi:home-outline" class="w-4 h-4" />
                 <span>Proyectos</span>
             </div>
-            <h2 class="text-3xl font-semibold tracking-tight">
+            <h2 class="text-3xl font-semibold text-on-surface">
                 Proyectos que nos definen
             </h2>
         </div>
         
         <!-- Filter Button -->
         <div id="portfolio-filter" class="flex flex-wrap justify-center gap-2 mb-16">
-            <button 
-                data-filter="all" 
-                class="filter-chip filter-chip-active"
-            >
+            <button data-filter="all" class="filter-chip filter-chip-active">
                 Todos
             </button>
             
             {categories.map(cat => (
-                <button
-                    class="filter-chip"
-                    data-filter={cat}
-                >
+                <button class="filter-chip" data-filter={cat}>
                     {cat.charAt(0).toUpperCase() + cat.slice(1)}
                 </button>
             ))}
@@ -44,68 +38,58 @@ const categories = Array.from(
         <!-- Portfolio Grid -->
         <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((proj, i) => (
-              <a
-                href={`/ConstrutoraSantana/project/${proj.slug}`}
-                class="portfolio-card group block rounded-3xl bg-surface shadow-sm hover:shadow-md border border-primary/10"
-                data-category={proj.data.type.toLowerCase()}
-                data-index={i}
-                role="article"
-                aria-label={`Proyecto: ${proj.data.title}, Categoria: ${proj.data.type}`}
-                tabindex="0"
-                data-astro-prefetch
-              >
-                  <div class="relative h-56 overflow-hidden rounded-t-3xl">
-                      <img 
-                        transition:name={`project-image-${proj.slug}`}
-                        src={proj.data.img.cover}
-                        alt={proj.data.title}
-                        loading="lazy"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-br from-primary/70 to-secondary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span
-                            class="bg-white text-primary px-5 py-2 rounded-xl font-medium shadow-md flex items-center gap-2 text-sm"
-                            aria-label={`Ver detalles del proyecto ${proj.data.title}`}
-                          >
-                              <Icon name="mdi:eye-outline" class="w-4 h-4" />
-                              Ver Proyecto
-                          </span>
-                      </div>
-                  </div>
+                <a
+                  href={`/ConstrutoraSantana/project/${proj.slug}`}
+                  class="portfolio-card group block rounded-3xl bg-surface border border-outline/30 overflow-hidden shadow-sm transition-[box-shadow,background-color] hover:shadow-md hover:bg-surface-variant"
+                  data-category={proj.data.type.toLowerCase()}
+                  data-index={i}
+                  role="article"
+                  aria-label={`Proyecto: ${proj.data.title}, Categoria: ${proj.data.type}`}
+                  tabindex="0"
+                  data-astro-prefetch
+                >
+                    <div class="relative h-56 overflow-hidden rounded-t-3xl">
+                        <img 
+                          transition:name={`project-image-${proj.slug}`}
+                          src={proj.data.img.cover}
+                          alt={proj.data.title}
+                          loading="lazy"
+                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/30 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+                            <span
+                              class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface/90 backdrop-blur text-primary text-sm font-medium shadow-sm"
+                              aria-label={`Ver detalles del proyecto ${proj.data.title}`}
+                            >
+                                <Icon name="mdi:eye-outline" class="w-4 h-4" />
+                                Ver Proyecto
+                            </span>
+                        </div>
+                    </div>
                   
-                  <!-- Contenido -->
-                  <div class="p-6 flex flex-col gap-3">
-                    <div class="bg-primary/20 text-gray-600 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide" transition:name={`project-type-${proj.slug}`}>
-                          <span class=" text-gray-600 px-3 text-sm font-semibold uppercase inline-flex" transition:name={`project-type-${proj.slug}`}>
-                              {proj.data.type}
-                          </span>
-                          <span class="text-gray-600 text-sm">
-                              {proj.data.date}
-                          </span>
-                    </div>
-                    
-                    <h4 
-                        class="text-lg font-semibold text-gray-600 tracking-tight"
-                        transition:name={`project-title-${proj.slug}`}
-                    >
-                        {proj.data.title}
-                    </h4>
-                    <p class="text-gray-600 text-sm leading-relaxed">
-                        {proj.data.description}
-                    </p>
-                    <div class="flex gap-2 flex-wrap">
-                        <span class="bg-primary/20 text-gray-600 px-3 py-1 rounded-full text-xs font-medium">
-                            {proj.data.location}
+                    <!-- Contenido -->
+                    <div class="p-6 space-y-4">
+                        <span class="inline-flex px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-medium" transition:name={`project-type-${proj.slug}`}>
+                            {proj.data.type}
                         </span>
+                        
+                        <h4 class="text-lg font-semibold text-on-surface" transition:name={`project-title-${proj.slug}`}>
+                            {proj.data.title}
+                        </h4>
+                        
+                        <p class="text-sm text-on-surface-variant line-clamp-2">
+                            {proj.data.description}
+                        </p>
+                        
+                        <div class="pt-2">
+                            <Button variant="tonal">
+                                Ver Proyecto
+                                <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
+                            </Button>
+                        </div>  
                     </div>
-                    <div class="pt-4">
-                        <Button variant="tonal">
-                            Ver Proyecto
-                            <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
-                        </Button>
-                    </div>  
-                  </div>
-              </a>
+                </a>
             ))}
         </div>
         
