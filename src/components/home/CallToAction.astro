@@ -7,25 +7,25 @@ const contactMethods = [
         icon: "mdi:map-marker",
         entries: [
             { type: "text", value: "Bávaro, Punta Cana" },
-            { type: "text", value: "República Dominicana" },
-        ],
+            { type: "text", value: "República Dominicana" }
+        ]
     },
     {
         label: "Teléfono",
         icon: "mdi:phone",
         entries: [
             { type: "tel", value: "+1 829 986 3012" },
-            { type: "tel", value: "+1 809 519 0756" },
-        ],
+            { type: "tel", value: "+1 809 519 0756" }
+        ]
     },
     {
         label: "Email",
         icon: "mdi:email",
         entries: [
             { type: "email", value: "admin@constructorasantanadiaz.com" },
-            { type: "email", value: "ingmanuelsantana@yahoo.es" },
-        ],
-    },
+            { type: "email", value: "ingmanuelsantana@yahoo.es" }
+        ]
+    }
 ];
 ---
 
@@ -51,12 +51,12 @@ const contactMethods = [
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {contactMethods.map(contactMethod => (
                 <div class="group rounded-2xl bg-surface border border-outline/60 p-6 transition hover:shadow-md hover:border-outline">
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 min-w-0">
                         <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/15 text-primary">
                             <Icon name={contactMethod.icon} class="w-6 h-6" />
                         </div>
                         
-                        <div class="flex-1">
+                        <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-on-surface-variant mb-1">
                                 {contactMethod.label}
                             </p>
@@ -64,11 +64,16 @@ const contactMethods = [
                             <div class="space-y-1">
                                 {contactMethod.entries.map(entry => (
                                     <button
-                                      type="button"
-                                      data-copy={entry.value}
-                                      class="copy-item text-left w-full text-base text-on-surface hover:text-primary transition-colors"
+                                        type="button"
+                                        data-copy={entry.value}
+                                        class="copy-item text-left w-full
+                                              text-base text-on-surface
+                                              hover:text-primary transition-colors
+                                              break-all md:break-normal sm:break-normal
+                                              overflow-hidden
+                                        "
                                     >
-                                      {entry.value}
+                                        {entry.value}
                                     </button>
                                 ))}
                             </div>
