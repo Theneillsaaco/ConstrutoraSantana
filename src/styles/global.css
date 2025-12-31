@@ -1,24 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #6750A4;
-    --color-secondary: #625B71;
-    --color-tertiary: #7D5260;
-    
-    --color-background: #F4EFF4;
-    --color-error: #B3261E;
-    
-    --color-secondary-container: oklch(90% 0.04 260);
-    --color-on-secondary-container: oklch(30% 0.05 260);
-  
-    --color-surface: oklch(98% 0.005 260);
-    --color-surface-variant: oklch(94% 0.01 260);
-  
-    --color-on-surface: oklch(20% 0.02 260);
-    --color-on-surface-variant: oklch(40% 0.03 260);
-  
-    --color-outline: oklch(75% 0.01 260);
+  /* Primary (azul MD3) */
+  --color-primary: #4F5DBA; /* azul suave, reemplazo del morado */
+  --color-secondary: #5E6A85; /* azul grisáceo */
+  --color-tertiary: #4A6FA5; /* azul acento */
+
+  /* Background & error */
+  --color-background: oklch(98% 0.01 245);
+  --color-error: #B3261E;
+
+  /* Containers */
+  --color-secondary-container: oklch(90% 0.035 245);
+  --color-on-secondary-container: oklch(28% 0.04 245);
+
+  /* Surfaces */
+  --color-surface: oklch(99% 0.004 245);
+  --color-surface-variant: oklch(95% 0.012 245);
+
+  /* On colors */
+  --color-on-surface: oklch(20% 0.02 245);
+  --color-on-surface-variant: oklch(42% 0.03 245);
+
+  /* Outline */
+  --color-outline: oklch(74% 0.015 245);
 }
+
 
 /* MD3 – Filter chip */
 .filter-chip {
