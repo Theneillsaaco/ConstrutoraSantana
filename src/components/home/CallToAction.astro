@@ -27,86 +27,79 @@ const contactMethods = [
         ],
     },
 ];
-
-const socials = [
-    { href: "#", color: "hover:bg-green-600", icon: "mdi:whatsapp" },
-];
 ---
 
 <section>
     <div class="container mx-auto px-6">
-        <div class="space-y-8 text-center">
-            <div
-                class="inline-flex items-center gap-2 bg-primary/20 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide mb-6"
-            >
+        <div class="space-y-6 text-center mb-12">
+            <div class="inline-flex items-center gap-2 bg-primary/15 text-primary px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
                 <Icon name="mdi:message-outline" class="w-4 h-4" />
-                <span>Contacto</span>
+                Contacto
             </div>
-
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-semibold tracking-tight">
-                    Ponte en contacto con nosotros
-                </h2>
-                <p class="text-gray-600 mt-4 max-w-xl mx-auto">
-                    Siempre abierto a colaborar en proyectos creativos, nuevas
-                    ideas o simplemente charlar.
-                </p>
-            </div>
-
-            <!-- Contact Methods -->
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {
-                    contactMethods.map((contactMethod) => (
-                        <div class="bg-surface border-outline rounded-2xl p-6 shadow-sm hover:shadow-md hover:scale-105 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-2xl bg-primary/20 text-gray-600">
-                                    {contactMethod.icon && (
-                                        <Icon
-                                            name={contactMethod.icon}
-                                            class="w-6 h-6"
-                                        />
-                                    )}
-                                </div>
-                                <div>
-                                    <p class="text-sm font-medium text-gray-600">
-                                        {contactMethod.label}
-                                    </p>
-                                    <div class="space-y-1">
-                                        {contactMethod.entries.map((entry) => {
-                                            if (entry.type === "tel") {
-                                                return (
-                                                    <a
-                                                        href={`tel:${entry.value.replace(/\s/g, "")}`}
-                                                        class="text-gray-600 text-base leading-snug hover:text-primary transition-colors block"
-                                                    >
-                                                        {entry.value}
-                                                    </a>
-                                                );
-                                            } else if (entry.type === "email") {
-                                                return (
-                                                    <a
-                                                        href={`mailto:${entry.value}`}
-                                                        class="text-gray-600 text-base leading-snug hover:text-primary transition-colors block"
-                                                    >
-                                                        {entry.value}
-                                                    </a>
-                                                );
-                                            } else {
-                                                // type === "text" for location
-                                                return (
-                                                    <p class="text-gray-600 text-base leading-snug">
-                                                        {entry.value}
-                                                    </p>
-                                                );
-                                            }
-                                        })}
-                                    </div>
-                                </div>
+            
+            <h2 class="text-3xl font-semibold tracking-tight">
+                Ponte en contacto con nosotros
+            </h2>
+            
+            <p class="text-on-surface max-w-xl mx-auto">
+                Siempre abierto a colaborar en proyectos creativos, nuevas
+                ideas o simplemente charlar.
+            </p>
+        </div>
+        
+        <!-- Contact Methods -->
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {contactMethods.map(contactMethod => (
+                <div class="group rounded-2xl bg-surface border border-outline/60 p-6 transition hover:shadow-md hover:border-outline">
+                    <div class="flex gap-4">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/15 text-primary">
+                            <Icon name={contactMethod.icon} class="w-6 h-6" />
+                        </div>
+                        
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-on-surface-variant mb-1">
+                                {contactMethod.label}
+                            </p>
+                            
+                            <div class="space-y-1">
+                                {contactMethod.entries.map(entry => (
+                                    <button
+                                      type="button"
+                                      data-copy={entry.value}
+                                      class="copy-item text-left w-full text-base text-on-surface hover:text-primary transition-colors"
+                                    >
+                                      {entry.value}
+                                    </button>
+                                ))}
                             </div>
                         </div>
-                    ))
-                }
-            </div>
+                    </div>
+                </div>
+            ))}
         </div>
     </div>
 </section>
+
+<script>
+  document.addEventListener("click", (e) => {
+    if (!(e.target instanceof Element)) return;
+
+    const target = e.target.closest("[data-copy]");
+    if (!(target instanceof HTMLElement)) return;
+
+    const value = target.dataset.copy;
+    if (!value) return;
+
+    navigator.clipboard.writeText(value);
+
+    const original = target.textContent;
+    target.textContent = "Copiado ✓";
+    target.classList.add("text-primary");
+
+    setTimeout(() => {
+      target.textContent = original;
+      target.classList.remove("text-primary");
+    }, 1200);
+  });
+</script>
+
