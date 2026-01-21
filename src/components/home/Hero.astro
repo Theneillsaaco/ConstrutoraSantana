@@ -2,25 +2,44 @@
 import Button from "../ui/Button.astro";
 ---
 
-<section class="py-32">
-    <div class="max-w-3xl">
-        <h1 class="text-5xl font-semibold tracking-tight">
-            Construimos espacios que perduran
-        </h1>
+<section class="relative h-screen overflow-hidden">
+    <div class="relative w-full h-full overflow-hidden rounded-3xl">
+        <video
+            class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            autoplay
+            loop
+            muted
+            playsinline
+            preload="metadata"
+            disablepictureinpicture
+        >
+            <source src="/ConstrutoraSantana/Video/hero_av1.mp4" />
+            <source src="/ConstrutoraSantana/Video/hero_vp9.webm" />
+        </video>
         
-        <p class="mt-6 text-lg text-gray-600">
-            Proyectos residenciales y comerciales ejecutados con calidad, precisión y compromiso.
-        </p>
-        
-        <div class="mt-10 flex gap-4">
-            <a href="/ConstrutoraSantana/projects" data-astro-prefetch>
-                <Button>
-                    Ver Proyectos
-                </Button>
-            </a>
-            <Button variant="tonal">
-                Contáctanos
-            </Button>
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+    
+        <div class="relative z-10 flex h-full items-end">
+            <div class="max-w-3xl px-6 pb-32 text-white">
+                <h1 class="text-5xl font-semibold tracking-tight">
+                    Construimos espacios que perduran
+                </h1>
+                
+                <p class="mt-6 text-lg text-white/80">
+                    Proyectos residenciales y comerciales ejecutados con calidad, precisión y compromiso.
+                </p>
+                
+                <div class="mt-10 flex gap-4">
+                    <a href="/ConstrutoraSantana/projects" data-astro-prefetch>
+                        <Button>
+                            Ver Proyectos
+                        </Button>
+                    </a>
+                    <Button>
+                        Contáctanos
+                    </Button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
