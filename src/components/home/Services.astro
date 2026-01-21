@@ -7,32 +7,63 @@ import Card from '../ui/Card.astro';
         Servicios
     </h2>
     
-    <div class="mt-12 grid md:grid-cols-3 gap-6">
-        <Card class="p-6">
-            <h3 class="font-medium">
-                Diseño arquitectónico
-            </h3>
-            <p class="mt-2 text-sm text-gray-600">
-                Planificación y diseño funcional adaptado a cada proyecto.
-            </p>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <Card class="overflow-hidden rounded-2xl">
+            <img 
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Diseño arquitectónico"
+                class="h-48 w-full object-cover"
+                loading="lazy"
+            />
+            
+            <div class="p-6">
+                <h3 class="font-medium">
+                    Diseño arquitectónico
+                </h3>
+                <p class="mt-2 text-sm text-gray-600">
+                    Planificación y diseño funcional adaptado a cada proyecto.
+                </p>
+            </div>
         </Card>
         
-        <Card class="p-6">
-            <h3 class="font-medium">
-                Construcción
-            </h3>
-            <p class="mt-2 text-sm text-gray-600"> 
-                Ejecución de obras con control técnico y calidad garantizada. 
-            </p>
+        <Card class="overflow-hidden rounded-2xl">
+            <img 
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Construcción"
+                class="h-48 w-full object-cover"
+                loading="lazy"
+            />
+            
+            <div class="p-6">
+                <h3 class="font-medium">
+                    Construcción
+                </h3>
+                <p class="mt-2 text-sm text-gray-700">
+                    Ejecución de obras con control técnico y calidad garantizada. 
+                </p>
+            </div>
+        </Card>
+    
+        <Card class="overflow-hidden rounded-2xl">
+            <img 
+                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Remodelaciones"
+                class="h-48 w-full object-cover"
+                loading="lazy"
+            />
+            
+            <div class="p-6">
+                <h3 class="font-medium">
+                    Remodelaciones
+                </h3>
+                <p class="mt-2 text-sm text-gray-700">
+                    Actualización y mejora de espacios existentes.
+                </p>
+            </div>
         </Card>
         
-        <Card class="p-6">
-            <h3 class="font-medium">
-                Remodelaciones
-            </h3> 
-            <p class="mt-2 text-sm text-gray-600"> 
-                Actualización y mejora de espacios existentes. 
-            </p>
-        </Card>
+        <p class="mt-12 text-sm text-gray-500">
+            Más de 10 años construyendo proyectos residenciales y comerciales.
+        </p>
     </div>
 </section>
