@@ -29,7 +29,7 @@ const filteredProjects = projects
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map(project => (
                 <a 
-                  href={`/ConstrutoraSantana/project/${project.slug}`}
+                  href={`/ConstrutoraSantana/project/${project.id}`}
                   class="group block rounded-3xl
                         bg-surface border border-outline/30
                         overflow-hidden
@@ -40,11 +40,10 @@ const filteredProjects = projects
                         focus-visible:ring-2 focus-visible:ring-primary/40"
                   aria-label={`Proyecto: ${project.data.title}, Categoria: ${project.data.type}`}
                   tabindex="0"
-                  data-astro-prefetch
                 >
                     <div class="relative aspect-video overflow-hidden">
                         <img
-                          transition:name={`project-image-${project.slug}`}
+                          transition:name={`project-image-${project.id}`}
                           src={project.data.img.cover}
                           alt={project.data.title}
                           class=" w-full h-full object-cover
@@ -66,7 +65,7 @@ const filteredProjects = projects
                     
                     <div class="p-6 space-y-4">
                         <div class="flex items-center gap-3 text-xs">
-                            <span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-medium" transition:name={`project-type=${project.slug}`}>
+                            <span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-medium" transition:name={`project-type=${project.id}`}>
                                 {project.data.type}
                             </span>
                             <span class="text-on-surface-variant">
@@ -76,7 +75,7 @@ const filteredProjects = projects
                         
                         <h3
                             class="text-lg font-semibold text-on-surface"
-                            transition:name={`project-title-${project.slug}`}
+                            transition:name={`project-title-${project.id}`}
                         >
                             {project.data.title}
                         </h3>

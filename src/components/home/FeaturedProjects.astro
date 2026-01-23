@@ -39,7 +39,7 @@ const categories = Array.from(
         <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((proj, i) => (
                 <a
-                  href={`/ConstrutoraSantana/project/${proj.slug}`}
+                  href={`/ConstrutoraSantana/project/${proj.id}`}
                   class="portfolio-card group block rounded-3xl bg-surface border border-outline/30 overflow-hidden shadow-sm transition-[box-shadow,background-color] hover:shadow-md hover:bg-surface-variant"
                   data-category={proj.data.type.toLowerCase()}
                   data-index={i}
@@ -50,7 +50,7 @@ const categories = Array.from(
                 >
                     <div class="relative h-56 overflow-hidden rounded-t-3xl">
                         <img 
-                          transition:name={`project-image-${proj.slug}`}
+                          transition:name={`project-image-${proj.id}`}
                           src={proj.data.img.cover}
                           alt={proj.data.title}
                           loading="lazy"
@@ -70,11 +70,11 @@ const categories = Array.from(
                   
                     <!-- Contenido -->
                     <div class="p-6 space-y-4">
-                        <span class="inline-flex px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-medium" transition:name={`project-type-${proj.slug}`}>
+                        <span class="inline-flex px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-medium" transition:name={`project-type-${proj.id}`}>
                             {proj.data.type}
                         </span>
                         
-                        <h4 class="text-lg font-semibold text-on-surface" transition:name={`project-title-${proj.slug}`}>
+                        <h4 class="text-lg font-semibold text-on-surface" transition:name={`project-title-${proj.id}`}>
                             {proj.data.title}
                         </h4>
                         
