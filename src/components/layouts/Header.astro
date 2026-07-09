@@ -1,11 +1,12 @@
 ---
 import Button from "../ui/Button.astro"
+import { Icon } from 'astro-icon/components';
 ---
 
 <header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
         <a href="/ConstrutoraSantana" class="text-lg font-semibold tracking-tight">
-            Construtora Santana
+            Constructora Santana Díaz
         </a>
         
         <!-- Desktop nav -->
@@ -16,7 +17,7 @@ import Button from "../ui/Button.astro"
         
         <div class="flex items-center gap-2">
             <div class="hidden md:inline-flex">
-                <Button variant="tonal">
+                <Button variant="tonal" href="/ConstrutoraSantana/#contacto">
                     Contacto
                 </Button>
             </div>
@@ -25,10 +26,12 @@ import Button from "../ui/Button.astro"
             <!-- Mobile menu button -->
             <button
                 id="mobile-menu-button"
-                class="md:hidden py-2 px-3 inline-flex items-center justify-center bg-primary/10 p-2 rounded-xl  hover:bg-primary/25 transition-colors"
+                class="md:hidden py-2 px-3 inline-flex items-center justify-center bg-primary/10 p-2 rounded-xl hover:bg-primary/25 transition-colors"
                 aria-label="Abrir menu"
+                aria-expanded="false"
             >
-                ☰
+                <Icon id="menu-icon-open" name="material-symbols:menu-rounded" class="w-6 h-6 text-on-surface" />
+                <Icon id="menu-icon-close" name="material-symbols:close-rounded" class="w-6 h-6 text-on-surface hidden" />
             </button>
         </div>
     </div>
@@ -46,7 +49,7 @@ import Button from "../ui/Button.astro"
                 Proyectos
             </a>
             
-            <Button variant="tonal" class="mt-4 w-fit">
+            <Button variant="tonal" href="/ConstrutoraSantana/#contacto" class="mt-4 w-fit">
                 Contacto
             </Button>
         </nav>
@@ -58,20 +61,27 @@ import Button from "../ui/Button.astro"
   function initMobileMenu() {
     const button = document.getElementById("mobile-menu-button");
     const menu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("menu-icon-open");
+    const closeIcon = document.getElementById("menu-icon-close");
 
     if (!button || !menu) return;
 
     button.addEventListener("click", () => {
-      const isOpen = menu.style.maxHeight;
+      const isOpen = !!menu.style.maxHeight;
 
       if (isOpen) {
         menu.style.maxHeight = "";
+        button.setAttribute("aria-expanded", "false");
+        openIcon?.classList.remove("hidden");
+        closeIcon?.classList.add("hidden");
       } else {
         menu.style.maxHeight = menu.scrollHeight + "px";
+        button.setAttribute("aria-expanded", "true");
+        openIcon?.classList.add("hidden");
+        closeIcon?.classList.remove("hidden");
       }
     });
   }
 
   document.addEventListener("astro:page-load", initMobileMenu);
 </script>
-
