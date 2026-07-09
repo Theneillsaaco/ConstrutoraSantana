@@ -1,69 +1,70 @@
 ---
 import Card from '../ui/Card.astro';
+import { Icon } from '@twodft/astro-icon/components';
+
+const services = [
+    {
+        title: "Diseño y presupuestos",
+        icon: "material-symbols:design-services-outline",
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        alt: "Diseño de interiores y acabados",
+        description: "Planificación, diseño y presupuestos adaptados a cada proyecto, con asesoría técnica desde la primera etapa."
+    },
+    {
+        title: "Construcción y supervisión",
+        icon: "material-symbols:construction",
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        alt: "Obra en construcción",
+        description: "Ejecución y supervisión de obras civiles, industriales, hoteleras e institucionales con control técnico garantizado."
+    },
+    {
+        title: "Remodelación y mantenimiento",
+        icon: "material-symbols:home-repair-service-outline",
+        img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        alt: "Remodelación de local comercial",
+        description: "Remodelación, mantenimiento de obras civiles y movimiento de tierra para actualizar y mejorar espacios existentes."
+    }
+];
 ---
 
 <section class="pt-24">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium mb-6">
+        <Icon name="material-symbols:home-outline" class="w-4 h-4" />
+        <span>
+            Servicios
+        </span>
+    </div>
+
     <h2 class="text-3xl font-semibold tracking-tight">
-        Servicios
+        Lo que hacemos
     </h2>
     
     <div class="mt-12 grid gap-6 md:grid-cols-3">
-        <Card class="overflow-hidden rounded-2xl">
-            <img 
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Diseño arquitectónico"
-                class="h-48 w-full object-cover"
-                loading="lazy"
-            />
-            
-            <div class="p-6">
-                <h3 class="font-medium">
-                    Diseño arquitectónico
-                </h3>
-                <p class="mt-2 text-sm text-gray-600">
-                    Planificación y diseño funcional adaptado a cada proyecto.
-                </p>
-            </div>
-        </Card>
-        
-        <Card class="overflow-hidden rounded-2xl">
-            <img 
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Construcción"
-                class="h-48 w-full object-cover"
-                loading="lazy"
-            />
-            
-            <div class="p-6">
-                <h3 class="font-medium">
-                    Construcción
-                </h3>
-                <p class="mt-2 text-sm text-gray-700">
-                    Ejecución de obras con control técnico y calidad garantizada. 
-                </p>
-            </div>
-        </Card>
-    
-        <Card class="overflow-hidden rounded-2xl">
-            <img 
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Remodelaciones"
-                class="h-48 w-full object-cover"
-                loading="lazy"
-            />
-            
-            <div class="p-6">
-                <h3 class="font-medium">
-                    Remodelaciones
-                </h3>
-                <p class="mt-2 text-sm text-gray-700">
-                    Actualización y mejora de espacios existentes.
-                </p>
-            </div>
-        </Card>
+        {services.map(service => (
+            <Card class="overflow-hidden rounded-2xl">
+                <img
+                    src={service.img}
+                    alt={service.alt}
+                    class="h-48 w-full object-cover"
+                    loading="lazy"
+                />
+
+                <div class="p-6">
+                    <div class="flex items-center gap-2">
+                        <Icon name={service.icon} class="w-5 h-5 text-primary" />
+                        <h3 class="font-medium">
+                            {service.title}
+                        </h3>
+                    </div>
+                    <p class="mt-2 text-sm text-on-surface-variant">
+                        {service.description}
+                    </p>
+                </div>
+            </Card>
+        ))}
     </div>
     
-    <p class="mt-12 text-sm text-gray-500 text-center">
-        Más de 10 años construyendo proyectos residenciales y comerciales.
+    <p class="mt-12 text-sm text-on-surface-variant text-center">
+        Más de 18 años construyendo proyectos residenciales, comerciales, hoteleros e institucionales.
     </p>
 </section>
