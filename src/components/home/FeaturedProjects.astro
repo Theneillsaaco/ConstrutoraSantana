@@ -14,7 +14,7 @@ const categories = Array.from(
     <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium mb-6">
-                <Icon name="mdi:home-outline" class="w-4 h-4" />
+                <Icon name="material-symbols:home-outline" class="w-4 h-4" />
                 <span>Proyectos</span>
             </div>
             <h2 class="text-3xl font-semibold text-on-surface">
@@ -57,12 +57,12 @@ const categories = Array.from(
                           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                         
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/30 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-linear-to-br from-primary/40 to-secondary/30 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
                             <span
                               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface/90 backdrop-blur text-primary text-sm font-medium shadow-sm"
                               aria-label={`Ver detalles del proyecto ${proj.data.title}`}
                             >
-                                <Icon name="mdi:eye-outline" class="w-4 h-4" />
+                                <Icon name="material-symbols:visibility-outline" class="w-4 h-4" />
                                 Ver Proyecto
                             </span>
                         </div>
@@ -85,7 +85,7 @@ const categories = Array.from(
                         <div class="pt-2">
                             <Button variant="tonal">
                                 Ver Proyecto
-                                <Icon name="mdi:arrow-right" class="w-4 h-4 ml-1" />
+                                <Icon name="material-symbols:arrow-right-alt-rounded" class="w-4 h-4 ml-1" />
                             </Button>
                         </div>  
                     </div>
@@ -108,50 +108,49 @@ const categories = Array.from(
 </section>
 
 <script type="module" is:inline>
-  document.addEventListener("astro:page-load", () => {
-    const filterButtons = document.querySelectorAll(".filter-chip");
-    const cards = document.querySelectorAll(".portfolio-card");
-    const MAX_VISIBLE = 6;
+    document.addEventListener("astro:page-load", () => {
+        const filterButtons = document.querySelectorAll(".filter-chip");
+        const cards = document.querySelectorAll(".portfolio-card");
+        const MAX_VISIBLE = 6;
 
-    function setActiveButton(activeBtn) {
-      filterButtons.forEach(btn => {
-        btn.classList.toggle("filter-chip-active", btn === activeBtn);
-      });
-    }
-
-    function filterCards(filter) {
-      let shown = 0;
-
-      cards.forEach(card => {
-        const category = card.dataset.category;
-        const match = filter === "all" || category === filter;
-
-        if (match && shown < MAX_VISIBLE) {
-          card.style.display = "block";
-
-          requestAnimationFrame(() => {
-            card.classList.remove("is-hidden");
-          });
-
-          shown++;
-        } else {
-          card.classList.add("is-hidden");
-
-          setTimeout(() => {
-            card.style.display = "none";
-          }, 200);
+        function setActiveButton(activeBtn) {
+            filterButtons.forEach(btn => {
+                btn.classList.toggle("filter-chip-active", btn === activeBtn);
+            });
         }
-      });
-    }
 
-    filterButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        setActiveButton(btn);
-        filterCards(btn.dataset.filter ?? "all");
-      });
+        function filterCards(filter) {
+            let shown = 0;
+
+            cards.forEach(card => {
+                const category = card.dataset.category;
+                const match = filter === "all" || category === filter;
+
+                if (match && shown < MAX_VISIBLE) {
+                    card.style.display = "block";
+                    requestAnimationFrame(() => {
+                        card.classList.remove("is-hidden");
+                    });
+
+                    shown++;
+                } else {
+                    card.classList.add("is-hidden");
+
+                    setTimeout(() => {
+                        card.style.display = "none";
+                    }, 200);
+                }
+            });
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                setActiveButton(btn);
+                filterCards(btn.dataset.filter ?? "all");
+            });
+        });
+
+        // inicial
+        filterCards("all");
     });
-
-    // inicial
-    filterCards("all");
-  });
 </script>
