@@ -20,6 +20,11 @@
   --color-outline: oklch(72% 0.015 225);
 }
 
+/* Base styles */
+html {
+    scroll-behavior: smooth;
+}
+
 
 /* MD3 – Filter chip */
 .filter-chip {

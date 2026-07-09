@@ -1,44 +1,75 @@
 ---
 import Button from "../ui/Button.astro";
+import { Icon } from '@twodft/astro-icon/components';
+
+const stats = [
+  {
+    value: "18+",
+    label: "Años de experiencia",
+      icon: "material-symbols:history-rounded",
+  },
+  {
+      value: "100+",
+      label: "Proyectos ejecutados",
+      icon: "material-symbols:domain-rounded",
+  },
+  {
+      value: "RD",
+      label: "Cobertura nacional",
+      icon: "material-symbols:location-on-rounded",
+  },
+];
 ---
 
-<section class="relative h-screen overflow-hidden">
-    <div class="relative w-full h-full overflow-hidden rounded-3xl">
-        <video
-            class="absolute inset-0 w-full h-full object-cover pointer-events-none"
-            autoplay
-            loop
-            muted
-            playsinline
-            preload="metadata"
-            disablepictureinpicture
-        >
-            <source src="/ConstrutoraSantana/Video/hero_av1.mp4" />
-            <source src="/ConstrutoraSantana/Video/hero_vp9.webm" />
-        </video>
-        
-        <div class="absolute inset-0 bg-black/40" />
+<section class="relative isolate min-h-screen overflow-hidden rounded-3xl">
+    <video
+        class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+        disablepictureinpicture
+    >
+        <source src="/ConstrutoraSantana/Video/hero_av1.mp4" />
+        <source src="/ConstrutoraSantana/Video/hero_vp9.webm" />
+    </video>
     
-        <div class="relative z-10 flex h-full items-end">
-            <div class="max-w-3xl px-6 pb-52 text-white">
-                <h1 class="text-5xl font-semibold tracking-tight">
-                    Construimos espacios que perduran
-                </h1>
-                
-                <p class="mt-6 text-lg text-white/80">
-                    Proyectos residenciales y comerciales ejecutados con calidad, precisión y compromiso.
-                </p>
-                
-                <div class="mt-10 flex gap-4">
-                    <a href="/ConstrutoraSantana/projects" data-astro-prefetch>
-                        <Button>
-                            Ver Proyectos
-                        </Button>
-                    </a>
+    <div class="absolute inset-0 bg-linear-to-r from-black/80 via-black/55 to-black/35" />
+
+    <div class="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+
+    <div class="relative z-10 mx-auto flex min-h-screen max-w-7xl items-center px-6">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur border border-white/15 px-4 py-2">
+                <Icon name="material-symbols:construction-rounded" class="text-primary text-xl" />
+
+                <span class="text-sm text-white font-medium">
+                    Constructora Santana Díaz SRL
+                </span>
+            </div>
+            
+            <h1 class="mt-8 text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-white">
+                Diseño,
+                Presupuestos
+                y Construcción
+
+                <span class="block text-primary mt-2">
+                    de Ingeniería Civil
+                </span>
+            </h1>
+            
+            <div class="mt-10 flex flex-wrap gap-4">
+                <a href="/ConstrutoraSantana#contacto">
                     <Button>
-                        Contáctanos
+                        Solicitar presupuesto
                     </Button>
-                </div>
+                </a>
+                <a href="/ConstrutoraSantana/projects" data-astro-prefetch>
+                    <Button>
+                        Ver Proyectos
+                    </Button>
+                </a>
             </div>
         </div>
     </div>
