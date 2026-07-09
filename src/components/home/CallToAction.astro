@@ -4,15 +4,15 @@ import { Icon } from '@twodft/astro-icon/components';
 const contactMethods = [
     {
         label: "Ubicacion",
-        icon: "mdi:map-marker",
+        icon: "material-symbols:location-on-outline",
         entries: [
-            { type: "text", value: "Bávaro, Punta Cana" },
-            { type: "text", value: "República Dominicana" }
+          { type: "text", value: "Residencial Don Rogelio, Carretera Verón" },
+          { type: "text", value: "Punta Cana, La Altagracia, RD" }
         ]
     },
     {
         label: "Teléfono",
-        icon: "mdi:phone",
+        icon: "material-symbols:call-outline",
         entries: [
             { type: "tel", value: "+1 829 986 3012" },
             { type: "tel", value: "+1 809 519 0756" }
@@ -20,7 +20,7 @@ const contactMethods = [
     },
     {
         label: "Email",
-        icon: "mdi:email",
+        icon: "material-symbols:mail-outline",
         entries: [
             { type: "email", value: "admin@constructorasantanadiaz.com" },
             { type: "email", value: "ingmanuelsantana@yahoo.es" }
@@ -29,11 +29,11 @@ const contactMethods = [
 ];
 ---
 
-<section id="contacto" class="pt-24">
+<section id="contacto" class="pt-24 scroll-mt-24">
     <div class="container mx-auto px-6">
         <div class="space-y-6 text-center mb-12">
             <div class="inline-flex items-center gap-2 bg-primary/15 text-primary px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wide">
-                <Icon name="mdi:message-outline" class="w-4 h-4" />
+                <Icon name="material-symbols:chat-outline" class="w-4 h-4" />
                 Contacto
             </div>
             
@@ -42,8 +42,7 @@ const contactMethods = [
             </h2>
             
             <p class="text-on-surface max-w-xl mx-auto">
-                Siempre abierto a colaborar en proyectos creativos, nuevas
-                ideas o simplemente charlar.
+                Escríbenos para cotizar tu próximo proyecto de diseño, construcción, remodelación o supervisión de obras.
             </p>
         </div>
         
@@ -86,25 +85,24 @@ const contactMethods = [
 </section>
 
 <script>
-  document.addEventListener("click", (e) => {
-    if (!(e.target instanceof Element)) return;
+    document.addEventListener("click", (e) => {
+        if (!(e.target instanceof Element)) return;
 
-    const target = e.target.closest("[data-copy]");
-    if (!(target instanceof HTMLElement)) return;
+        const target = e.target.closest("[data-copy]");
+        if (!(target instanceof HTMLElement)) return;
 
-    const value = target.dataset.copy;
-    if (!value) return;
+        const value = target.dataset.copy;
+        if (!value) return;
 
-    navigator.clipboard.writeText(value);
+        navigator.clipboard.writeText(value);
 
-    const original = target.textContent;
-    target.textContent = "Copiado ✓";
-    target.classList.add("text-primary");
+        const original = target.textContent;
+        target.textContent = "Copiado ✓";
+        target.classList.add("text-primary");
 
-    setTimeout(() => {
-      target.textContent = original;
-      target.classList.remove("text-primary");
-    }, 1200);
-  });
+        setTimeout(() => {
+            target.textContent = original;
+            target.classList.remove("text-primary");
+        }, 1200);
+    });
 </script>
-
