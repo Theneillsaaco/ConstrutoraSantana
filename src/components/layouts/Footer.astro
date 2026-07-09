@@ -2,14 +2,23 @@
 import { Icon } from '@twodft/astro-icon/components';
 ---
 
-<footer class="mt-24 pt-6 pb-6 bg-surface border-t">
-    <div class="max-w-7xl mx-auto px-4 py-10 grid gap-6 md:grid-cols-3">
+<footer class="mt-24 pt-6 pb-6 bg-surface border-t border-outline/30">
+    <div class="max-w-7xl mx-auto px-4 py-10 grid gap-10 md:grid-cols-3">
         <div>
-            <h3 class="font-semibold">
-                Construtora Santana
-            </h3>
-            <p class="text-sm text-gray-600 mt-2">
-                Construimos espacios sólidos y duraderos.
+            <div class="flex items-center gap-3">
+                <img
+                    src="/ConstrutoraSantana/Images/Sites/logo-icon.png"
+                    alt="Constructora Santana Díaz SRL"
+                    class="h-9 w-auto"
+                />
+                
+                <h3 class="font-semibold">
+                    Construtora Santana
+                </h3>
+            </div>
+
+            <p class="text-sm text-on-surface-variant mt-3">
+                 Diseño, presupuestos y construcción de servicios de ingeniería civil en general desde 2007.
             </p>
         </div>
         
@@ -17,9 +26,10 @@ import { Icon } from '@twodft/astro-icon/components';
             <p class="font-medium">
                 Navegacion
             </p>
-            <ul class="mt-2 space-y-1 text-gray-600">
-                <li><a href="/ConstrutoraSantana">Inicio</a></li> 
-                <li><a href="projects">Proyectos</a></li>
+            <ul class="mt-2 space-y-1 text-on-surface-variant">
+                <li><a href="/ConstrutoraSantana" class="hover:text-primary transition-colors">Inicio</a></li> 
+                <li><a href="/ConstrutoraSantana/projects" class="hover:text-primary transition-colors">Proyectos</a></li>
+                <li><a href="/ConstrutoraSantana/#contacto" class="hover:text-primary transition-colors">Contacto</a></li>
             </ul>
         </div>
         
@@ -27,22 +37,22 @@ import { Icon } from '@twodft/astro-icon/components';
             <p class="font-medium">
                 Contacto
             </p>
+            <p class="mt-2 text-on-surface-variant">
+                Residencial Don Rogelio, Carretera Verón, Punta Cana, La Altagracia
+            </p>
             <p class="mt-2 text-gray-600">
-                +1 829 986 3012
+                809-519-0756 · 829-986-3012
             </p>
             <p class="mt-2 text-gray-600">
                  admin@constructorasantanadiaz.com
             </p>
-            <p class="mt-2 text-gray-600">
-                ingmanuelsantana@yahoo.es
-            </p>
         </div>
     </div>
     
-    <div class="border-t border-primary mt-8 pt-6 px-4">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-gray-600">
+    <div class="border-t border-primary/30 mt-4 pt-6 px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-on-surface-variant text-sm">
             <p>
-                © {new Date().getFullYear()} Construtora Santana.
+                © {new Date().getFullYear()} Construtora Santana Díaz SRL.
             </p>
             <p class="flex items-center">
                Desarrollado con
