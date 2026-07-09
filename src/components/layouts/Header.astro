@@ -3,16 +3,25 @@ import Button from "../ui/Button.astro"
 import { Icon } from '@twodft/astro-icon/components';
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur">
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/80 backdrop-blur elevation-1">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="/ConstrutoraSantana" class="text-lg font-semibold tracking-tight">
-            Constructora Santana Díaz
+        <a href="/ConstrutoraSantana" class="flex items-center gap-3 shrink-0">
+            <img
+                src="/ConstrutoraSantana/Images/Sites/logo-icon.png"
+                alt="Constructora Santana Díaz SRL"
+                class="h-8 w-auto"
+            />
+            
+            <span class="text-base font-semibold tracking-tight leading-tight hidden sm:block">
+                Constructora Santana Díaz
+            </span>
         </a>
         
         <!-- Desktop nav -->
-        <nav class="hidden md:flex gap-8 text-sm font-medium">
-            <a href="/ConstrutoraSantana" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Inicio</a>
-            <a href="/ConstrutoraSantana/projects" class="px-4 py-2 rounded-xl transition-colors hover:text-primary hover:bg-primary/15">Proyectos</a>
+        <nav class="hidden md:flex gap-2 text-sm font-medium">
+            <a href="/ConstrutoraSantana" class="state-layer px-4 py-2 rounded-full transition-colors hover:text-primary">Inicio</a>
+            <a href="/ConstrutoraSantana/projects" class="state-layer px-4 py-2 rounded-full transition-colors hover:text-primary">Proyectos</a>
+            <a href="/ConstrutoraSantana/#contacto" class="state-layer px-4 py-2 rounded-full transition-colors hover:text-primary">Contacto</a>
         </nav>
         
         <div class="flex items-center gap-2">
@@ -26,12 +35,14 @@ import { Icon } from '@twodft/astro-icon/components';
             <!-- Mobile menu button -->
             <button
                 id="mobile-menu-button"
-                class="md:hidden py-2 px-3 inline-flex items-center justify-center bg-primary/10 p-2 rounded-xl hover:bg-primary/25 transition-colors"
+                class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-primary/10 hover:bg-primary/25 transition-colors"
                 aria-label="Abrir menu"
                 aria-expanded="false"
+                aria-controls="mobile-menu"
             >
-                <Icon id="menu-icon-open" name="material-symbols:menu-rounded" class="w-6 h-6 text-on-surface" />
-                <Icon id="menu-icon-close" name="material-symbols:close-rounded" class="w-6 h-6 text-on-surface hidden" />
+                <span id="mobile-menu-icon" class="material-symbols-outlined text-on-surface">
+                    menu
+                </span>
             </button>
         </div>
     </div>
@@ -39,7 +50,7 @@ import { Icon } from '@twodft/astro-icon/components';
     <!-- Mobile Menu -->
     <div 
         id="mobile-menu"
-        class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 bg-gray-200/70"
+        class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 bg-surface-variant/95"
     >
         <nav class="px-4 py-6 flex flex-col items-center justify-center gap-4 text-sm font-medium">
             <a href="/ConstrutoraSantana" class="hover:text-primary">
@@ -58,30 +69,29 @@ import { Icon } from '@twodft/astro-icon/components';
 
 
 <script is:inline type="module">
-  function initMobileMenu() {
-    const button = document.getElementById("mobile-menu-button");
-    const menu = document.getElementById("mobile-menu");
-    const openIcon = document.getElementById("menu-icon-open");
-    const closeIcon = document.getElementById("menu-icon-close");
-
-    if (!button || !menu) return;
-
-    button.addEventListener("click", () => {
-      const isOpen = !!menu.style.maxHeight;
-
-      if (isOpen) {
-        menu.style.maxHeight = "";
-        button.setAttribute("aria-expanded", "false");
-        openIcon?.classList.remove("hidden");
-        closeIcon?.classList.add("hidden");
-      } else {
-        menu.style.maxHeight = menu.scrollHeight + "px";
-        button.setAttribute("aria-expanded", "true");
-        openIcon?.classList.add("hidden");
-        closeIcon?.classList.remove("hidden");
-      }
-    });
-  }
-
-  document.addEventListener("astro:page-load", initMobileMenu);
+    function initMobileMenu() {
+        const button = document.getElementById("mobile-menu-button");
+        const menu = document.getElementById("mobile-menu");
+        const icon = document.getElementById("mobile-menu-icon");
+ 
+        if (!button || !menu || !icon) return;
+ 
+        button.addEventListener("click", () => {
+            const isOpen = Boolean(menu.style.maxHeight);
+ 
+            if (isOpen) {
+                menu.style.maxHeight = "";
+                icon.textContent = "menu";
+                button.setAttribute("aria-expanded", "false");
+                button.setAttribute("aria-label", "Abrir menú");
+            } else {
+                menu.style.maxHeight = menu.scrollHeight + "px";
+                icon.textContent = "close";
+                button.setAttribute("aria-expanded", "true");
+                button.setAttribute("aria-label", "Cerrar menú");
+            }
+        });
+    }
+ 
+    document.addEventListener("astro:page-load", initMobileMenu);
 </script>

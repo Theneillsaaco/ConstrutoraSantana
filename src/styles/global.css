@@ -18,11 +18,71 @@
   --color-on-surface-variant: oklch(40% 0.03 225);
 
   --color-outline: oklch(72% 0.015 225);
+
+  --font-sans: "Roboto", "Roboto Flex", system-ui, sans-serif;
 }
 
-/* Base styles */
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* MD3 - Material Symbols icon font */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* MD3 - state layer helper for interactive surfaces */
+.state-layer {
+  position: relative;
+  isolation: isolate;
+}
+
+.state-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  pointer-events: none;
+}
+
+.state-layer:hover::before {
+  opacity: 0.08;
+}
+
+.state-layer:active::before {
+  opacity: 0.12;
+}
+
+/* MD3 - elevation tokens */
+.elevation-1 {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.10), 0 1px 3px 1px rgb(0 0 0 / 0.08);
+}
+
+.elevation-2 {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.12), 0 2px 6px 2px rgb(0 0 0 / 0.10);
+}
+
+.elevation-3 {
+  box-shadow: 0 4px 8px 3px rgb(0 0 0 / 0.10), 0 1px 3px 0 rgb(0 0 0 / 0.12);
 }
 
 
