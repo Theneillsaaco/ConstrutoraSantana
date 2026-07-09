@@ -1,5 +1,5 @@
 ---
-type ButtonVariant = "filled" | "tonal" | "outlined" | "text";
+type ButtonVariant = "filled" | "tonal" | "outlined" | "outlined-light" | "text";
 
 interface Props {
   variant?: ButtonVariant;
@@ -13,12 +13,14 @@ const {
   href
 } = Astro.props as Props;
 
-const base = "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition";
+const base = "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition state-layer";
 
 const variants: Record<ButtonVariant, string> = {
   filled: "bg-primary text-white hover:bg-primary/90",
   tonal: "bg-primary/10 text-primary hover:bg-primary/20",
-  outlined: "border border-primary text-primary hover:bg-primary/10", text: "text-primary hover:bg-primary/10"
+  outlined: "border border-primary text-primary hover:bg-primary/10",
+  outlined-light: "border border-white/70 text-white hover:bg-white/10",
+  text: "text-primary hover:bg-primary/10"
 };
 ---
 {href ? (

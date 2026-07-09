@@ -53,12 +53,12 @@ const filteredProjects = projects
                           loading="lazy"
                         />
                         
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary/40 to-secondary/30 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-linear-to-br from-primary/40 to-secondary/30 flex items-center justify-center opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100">
                             <span
                               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-surface/90 backdrop-blur text-primary text-sm font-medium shadow-sm"
                               aria-label={`Ver detalles del proyecto ${project.data.title}`}
                             >
-                                <Icon name="mdi:eye-outline" class="w-4 h-4" />
+                                <Icon name="material-symbols:visibility-outline" class="w-4 h-4" />
                                 Ver Proyecto
                             </span>
                         </div>
@@ -87,7 +87,7 @@ const filteredProjects = projects
                         
                         <div class="flex items-center gap-2 text-sm text-on-surface-variant">
                             <div class="flex items-center">
-                                <Icon name="mdi:map-marker" class="w-4 h-4" />
+                                <Icon name="material-symbols:location-on-outline" class="w-4 h-4" />
                                 {project.data.location}
                             </div>
                         </div>
