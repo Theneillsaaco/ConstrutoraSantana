@@ -42,18 +42,18 @@ const baseSet =
                             >
                                 <img 
                                     src={client.logo}
-                                alt={client.name}
-                                class="h-14 w-auto object-contain"
-                                loading="lazy"
-                            />
-                        </a>
+                                    alt={client.name}
+                                    class="h-14 w-auto object-contain"
+                                    decoding="async"
+                                />
+                            </a>
                         ) : (
                             <div class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" title={client.name}>
                                 <img 
                                     src={client.logo}
                                     alt={client.name}
                                     class="h-14 w-auto object-contain"
-                                    loading="lazy"
+                                    decoding="async"
                                 />
                             </div>
                         )
@@ -81,24 +81,42 @@ const baseSet =
 </style>
  
 <script>
-    function setupMarquee(root: HTMLElement) {
+    async function setupMarquee(root: HTMLElement) {
         const track = root.querySelector<HTMLElement>(".clients-track");
         const firstSet = root.querySelector<HTMLElement>(".clients-set");
         if (!track || !firstSet) return;
- 
+    
         // Limpia clones de una ejecucion anterior (ej. si Astro re-hidrata la vista)
         track.querySelectorAll(".clients-set-clone").forEach(el => el.remove());
         track.getAnimations().forEach(a => a.cancel());
- 
+    
+        // Medir el ancho ANTES de que las imagenes carguen da un ancho falso
+        // (mas chico), y la animacion termina moviendose una distancia que no
+        // coincide con el ancho real ya renderizado -> se ve un salto en cada
+        // vuelta. Esperamos a que todas las imagenes del set fuente esten
+        // completamente decodificadas antes de medir y animar.
+        const images = Array.from(firstSet.querySelectorAll("img"));
+        await Promise.all(
+            images.map(img =>
+                img.decode
+                    ? img.decode().catch(() => {})
+                    : new Promise<void>(resolve => {
+                          if (img.complete) return resolve();
+                          img.addEventListener("load", () => resolve(), { once: true });
+                          img.addEventListener("error", () => resolve(), { once: true });
+                      })
+            )
+        );
+    
         const setWidth = firstSet.getBoundingClientRect().width;
         const containerWidth = root.getBoundingClientRect().width;
         if (setWidth === 0) return;
- 
+    
         // Necesitamos cubrir el ancho visible + un set extra completo,
         // para que siempre haya contenido entrando por la derecha mientras
         // el de la izquierda sale, sin huecos, sin importar el ancho de pantalla.
         const setsNeeded = Math.ceil((containerWidth + setWidth) / setWidth) + 1;
- 
+    
         for (let i = 1; i < setsNeeded; i++) {
             const clone = firstSet.cloneNode(true) as HTMLElement;
             clone.classList.add("clients-set-clone");
@@ -106,10 +124,10 @@ const baseSet =
             clone.querySelectorAll("a").forEach(a => a.setAttribute("tabindex", "-1"));
             track.appendChild(clone);
         }
- 
+    
         const speed = 60; // px/segundo, debe combinar con --speed en CSS
         const durationMs = (setWidth / speed) * 1000;
- 
+    
         track.animate(
             [
                 { transform: "translateX(0)" },
@@ -121,12 +139,12 @@ const baseSet =
                 easing: "linear"
             }
         );
- 
+    
         const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (prefersReducedMotion) {
             track.getAnimations().forEach(a => a.cancel());
         }
- 
+    
         root.addEventListener("mouseenter", () => {
             track.getAnimations().forEach(a => a.pause());
         });
@@ -134,15 +152,15 @@ const baseSet =
             track.getAnimations().forEach(a => a.play());
         });
     }
- 
+    
     function initAll() {
         document.querySelectorAll<HTMLElement>(".clients-marquee").forEach(setupMarquee);
     }
- 
+    
     // Reinicializa en navegacion de Astro (View Transitions) y en resize
     // (debounced) para recalcular cuantas copias hacen falta.
     document.addEventListener("astro:page-load", initAll);
- 
+    
     let resizeTimeout: ReturnType<typeof setTimeout>;
     window.addEventListener("resize", () => {
         clearTimeout(resizeTimeout);
