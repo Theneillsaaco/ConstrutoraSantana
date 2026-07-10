@@ -1,8 +1,6 @@
 ---
 import { Icon } from '@twodft/astro-icon/components';
 import { clients } from "../../content/Clients/clients";
-
-const track = [ ...clients, ...clients];
 ---
 
 {clients.length > 0 && (
@@ -10,7 +8,9 @@ const track = [ ...clients, ...clients];
         <div class="text-center mb-12">
             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium mb-6">
                 <Icon name="material-symbols:handshake-outline" class="w-4 h-4" />
-                <span>Empresas que confían en nosotros</span>
+                <span>
+                    Empresas que confían en nosotros
+                </span>
             </div>
 
             <h2 class="text-3xl font-semibold tracking-tight">
@@ -18,63 +18,124 @@ const track = [ ...clients, ...clients];
             </h2>
         </div>
 
-        <div class="relative overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <div class="clients-track flex items-center gap-8 w-max">
-                {track.map((client, i) => (
-                    client.url ? (
-                        <a 
-                            href={client.url}
-                            target="_blank"    
-                            rel="noopener noreferrer"
-                            class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300"
-                            aria-label={`Visitar ${client.name}`}
-                            tabindex={i < clients.length ? 0 : -1}
-                        >
-                            <img 
-                                src={client.logo}
+        <div class="clients-marquee relative overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div class="clients-track flex items-center gap-16 w-max will-change-transform">
+                <div class="clients-set flex items-center gap-16 shrink-0">
+                    {clients.map(client => (
+                        client.url ? (
+                            <a 
+                                href={client.url}
+                                target="_blank"    
+                                rel="noopener noreferrer"
+                                class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                                aria-label={`Visitar ${client.name}`}
+                            >
+                                <img 
+                                    src={client.logo}
                                 alt={client.name}
                                 class="h-14 w-auto object-contain"
                                 loading="lazy"
                             />
                         </a>
-                    ) : (
-                        <div class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" title={client.name}>
-                            <img 
-                                src={client.logo}
-                                alt={client.name}
-                                class="h-14 w-auto object-contain"
-                                loading="lazy"
-                            />
-                        </div>
-                    )
-                ))}
+                        ) : (
+                            <div class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" title={client.name}>
+                                <img 
+                                    src={client.logo}
+                                    alt={client.name}
+                                    class="h-14 w-auto object-contain"
+                                    loading="lazy"
+                                />
+                            </div>
+                        )
+                    ))}
+                </div>
             </div>
         </div>
     </section>
 )}
 
 <style>
+    /* Velocidad del marquee en px/segundo. El script calcula la duración real
+       según el ancho medido, así la velocidad se ve igual sin importar
+       cuántos logos haya o qué tan ancha sea la pantalla. */
     .clients-track {
-        animation: clients-scroll 35s linear infinite;
-    }
- 
-    .relative:hover .clients-track {
-        animation-play-state: paused;
-    }
- 
-    @keyframes clients-scroll {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            /* -50% porque la pista esta duplicada (2x el contenido real) */
-            transform: translateX(-50%);
-        }
+        --speed: 60; /* px por segundo */
     }
  
     @media (prefers-reduced-motion: reduce) {
         .clients-track {
-            animation: none;
+            animation: none !important;
+            transform: none !important;
         }
     }
 </style>
+ 
+<script>
+    function setupMarquee(root: HTMLElement) {
+        const track = root.querySelector<HTMLElement>(".clients-track");
+        const firstSet = root.querySelector<HTMLElement>(".clients-set");
+        if (!track || !firstSet) return;
+ 
+        // Limpia clones de una ejecucion anterior (ej. si Astro re-hidrata la vista)
+        track.querySelectorAll(".clients-set-clone").forEach(el => el.remove());
+        track.getAnimations().forEach(a => a.cancel());
+ 
+        const setWidth = firstSet.getBoundingClientRect().width;
+        const containerWidth = root.getBoundingClientRect().width;
+        if (setWidth === 0) return;
+ 
+        // Necesitamos cubrir el ancho visible + un set extra completo,
+        // para que siempre haya contenido entrando por la derecha mientras
+        // el de la izquierda sale, sin huecos, sin importar el ancho de pantalla.
+        const setsNeeded = Math.ceil((containerWidth + setWidth) / setWidth) + 1;
+ 
+        for (let i = 1; i < setsNeeded; i++) {
+            const clone = firstSet.cloneNode(true) as HTMLElement;
+            clone.classList.add("clients-set-clone");
+            clone.setAttribute("aria-hidden", "true");
+            clone.querySelectorAll("a").forEach(a => a.setAttribute("tabindex", "-1"));
+            track.appendChild(clone);
+        }
+ 
+        const speed = 60; // px/segundo, debe combinar con --speed en CSS
+        const durationMs = (setWidth / speed) * 1000;
+ 
+        track.animate(
+            [
+                { transform: "translateX(0)" },
+                { transform: `translateX(-${setWidth}px)` }
+            ],
+            {
+                duration: durationMs,
+                iterations: Infinity,
+                easing: "linear"
+            }
+        );
+ 
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (prefersReducedMotion) {
+            track.getAnimations().forEach(a => a.cancel());
+        }
+ 
+        root.addEventListener("mouseenter", () => {
+            track.getAnimations().forEach(a => a.pause());
+        });
+        root.addEventListener("mouseleave", () => {
+            track.getAnimations().forEach(a => a.play());
+        });
+    }
+ 
+    function initAll() {
+        document.querySelectorAll<HTMLElement>(".clients-marquee").forEach(setupMarquee);
+    }
+ 
+    // Reinicializa en navegacion de Astro (View Transitions) y en resize
+    // (debounced) para recalcular cuantas copias hacen falta.
+    document.addEventListener("astro:page-load", initAll);
+ 
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(initAll, 200);
+    });
+</script>
