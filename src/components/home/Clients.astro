@@ -29,30 +29,30 @@ const baseSet =
         </div>
 
         <div class="clients-marquee relative overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <div class="clients-track flex items-center gap-16 w-max will-change-transform">
-                <div class="clients-set flex items-center gap-16 shrink-0">
+            <div class="clients-track flex items-center gap-8 w-max will-change-transform">
+                <div class="clients-set flex items-center gap-8 shrink-0">
                     {baseSet.map(client => (
                         client.url ? (
                             <a 
                                 href={client.url}
                                 target="_blank"    
                                 rel="noopener noreferrer"
-                                class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300"
+                                class="shrink-0 flex items-center justify-center h-30 w-54 rounded-3xl bg-surface-variant/90 px-6 py-4 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 hover:bg-surface-variant transition duration-300"
                                 aria-label={`Visitar ${client.name}`}
                             >
                                 <img 
                                     src={client.logo}
                                     alt={client.name}
-                                    class="h-14 w-auto object-contain"
+                                    class="max-h-18 max-w-auto object-contain"
                                     decoding="async"
                                 />
                             </a>
                         ) : (
-                            <div class="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition duration-300" title={client.name}>
+                            <div class="shrink-0 flex items-center justify-center h-24 w-44 rounded-2xl bg-surface-variant/70 px-6 py-4 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 hover:bg-surface-variant transition duration-300" title={client.name}>
                                 <img 
                                     src={client.logo}
                                     alt={client.name}
-                                    class="h-14 w-auto object-contain"
+                                    class="max-h-10 max-w-auto object-contain"
                                     decoding="async"
                                 />
                             </div>
