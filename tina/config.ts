@@ -52,6 +52,11 @@ export default defineConfig({
             }
           },
           {
+            type: "datetime",
+            name: "date",
+            label: "Fecha"
+          },
+          {
             type: "string",
             name: "type",
             label: "Tipo",
@@ -59,6 +64,22 @@ export default defineConfig({
           },
           {
             type: "string",
+            name: "location",
+            label: "Ubicacion"
+          },
+          {
+            type: "string",
+            name: "meters",
+            label: "Metros cuadrados"
+          },
+          {
+            type: "string",
+            name: "tags",
+            label: "Etiquetas",
+            list: true
+          },
+          {
+            type: "object",
             name: "img",
             label: "Imagenes",
             fields: [
